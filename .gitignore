@@ -1,0 +1,28 @@
+# language: gitignore, file: .gitignore
+
+# сиррҳо
+.env
+
+# база ва session
+*.db
+*.session
+*.session-journal
+sessions/
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# логи
+*.log
