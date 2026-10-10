@@ -1,4 +1,0 @@
-# language: text, file: requirements.txt
-aiogram>=3.7,<4
-telethon>=1.36
-python-dotenv>=1.0
