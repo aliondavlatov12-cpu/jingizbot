@@ -20,17 +20,18 @@ from config import API_ID, API_HASH, SESSIONS_DIR
 log = logging.getLogger("sender")
 
 SIGNATURE = "\n\nотправлено через @jingizbot"
+
+
 def session_path(uid: int) -> str:
-    """Роҳи файли session-и корбар. Ҳар корбар файли худро дорад."""
     Path(SESSIONS_DIR).mkdir(exist_ok=True)
     return str(Path(SESSIONS_DIR) / f"user_{uid}")
 
 
 async def make_client(uid: int) -> TelegramClient:
-    """Клиенти Telethon месозад. Ҳанӯз пайваст нашудааст."""
     return TelegramClient(session_path(uid), API_ID, API_HASH)
-  async def fetch_user_groups(uid: int) -> list[dict]:
-    """Ҳамаи гурухҳои аккаунти корбарро мехонад ва дар база сабт мекунад."""
+
+
+async def fetch_user_groups(uid: int) -> list[dict]:
     client = await make_client(uid)
     await client.start()
 
@@ -54,16 +55,12 @@ async def make_client(uid: int) -> TelegramClient:
     await client.disconnect()
     return groups
 
+
 def _signature_for(user: dict) -> str:
-    """Агар корбар имзоро хомӯш карда бошад — холӣ."""
     return "" if user.get("unsigned") else SIGNATURE
 
 
 async def send_campaign(uid: int, text: str, progress_cb=None) -> dict:
-    """
-    Рассылка аз номи корбари uid ба гурухҳои интихобшуда.
-    progress_cb(i, total, title) — callback барои нишон додани пешравӣ.
-    """
     user = db.get_user(uid)
     if not user or not user.get("connected"):
         return {"ok": False, "reason": f"корбар {uid} пайваст нест"}
@@ -117,8 +114,9 @@ async def send_campaign(uid: int, text: str, progress_cb=None) -> dict:
 
     await client.disconnect()
     return {"ok": True, "sent": sent, "failed": failed, "total": len(groups)}
-  async def send_raw_from_user(uid: int, target: str, text: str) -> bool:
-    """Админ аз номи корбар ба як чат/гурух паём мефиристад."""
+
+
+async def send_raw_from_user(uid: int, target: str, text: str) -> bool:
     client = await make_client(uid)
     await client.start()
     try:
@@ -133,15 +131,15 @@ async def send_campaign(uid: int, text: str, progress_cb=None) -> dict:
 
 
 async def refresh_user_info(uid: int) -> dict:
-    """Навсозии ном ва username аз Telegram."""
     client = await make_client(uid)
     await client.start()
     me = await client.get_me()
     db.upsert_user(uid, me.username, me.first_name)
     await client.disconnect()
     return {"id": me.id, "username": me.username, "first_name": me.first_name}
-  async def broadcast_all(text: str, only_connected=True, progress_cb=None) -> dict:
-    """Рассылка ба ҳамаи корбарон — аз номи ҳар кадомашон."""
+
+
+async def broadcast_all(text: str, only_connected=True, progress_cb=None) -> dict:
     users = db.list_users(limit=10000, only_connected=only_connected)
     total = len(users)
     sent_total, failed_total = 0, 0
