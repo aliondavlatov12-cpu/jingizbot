@@ -1,7 +1,0 @@
-id         INTEGER PRIMARY KEY
-chat_id    INTEGER   -- ID-и канал/гуруҳ
-username   TEXT      -- @username (барои сохтани линк)
-title      TEXT      -- ном
-invite     TEXT      -- линки даъват (агар хусусӣ бошад)
-added_by   INTEGER   -- кадом админ илова кард
-added_at   TIMESTAMP
