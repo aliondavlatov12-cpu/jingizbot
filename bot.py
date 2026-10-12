@@ -23,8 +23,8 @@ from telethon.sessions import StringSession
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError, PhoneNumberInvalidError, PhoneCodeExpiredError, PasswordHashInvalidError
 
 import db as db
-import VortenaBot_sender as sender
-from VortenaBot_config import config
+import sender as sender
+from config import config
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 log = logging.getLogger("VortenaBot")
