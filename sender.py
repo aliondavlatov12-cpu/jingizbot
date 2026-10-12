@@ -8,7 +8,7 @@ from telethon.errors import (
 )
 from telethon.tl.types import Channel, Chat
 import db as db
-from VortenaBot_config import config
+from config import config
 
 log = logging.getLogger(__name__)
 
