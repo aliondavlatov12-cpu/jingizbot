@@ -7,7 +7,7 @@ from telethon.errors import (
     UserBannedInChannelError, SlowModeWaitError, RPCError
 )
 from telethon.tl.types import Channel, Chat
-import VortenaBot_db as db
+import db as db
 from VortenaBot_config import config
 
 log = logging.getLogger(__name__)
